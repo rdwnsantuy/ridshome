@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('tb_produk', function (Blueprint $table) {
             $table->id('id_produk');
+            $table->string('kode_produk')->unique();
             $table->string('nama_produk', 150);
-            $table->integer('harga');
+            $table->bigInteger('harga');
             $table->text('deskripisi_produk');
-            $table->integer('kategori_id');
+            $table->integer('stok');
+            $table->string('gambar')->nullable();
+            $table->unsignedBigInteger('kategori_id');
             $table->timestamps();
+
+            $table->foreign('kategori_id')->references('id_kategori')->on('tb_kategori')->onDelete('cascade');
         });
     }
 

@@ -74,7 +74,7 @@
 
                             {{-- Deskripsi --}}
                             <td>
-                                {{ $item->deskripsi }}
+                                {{ $item->deskripisi }}
                             </td>
 
                             {{-- Aksi --}}

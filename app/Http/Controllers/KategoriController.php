@@ -48,17 +48,17 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama_kategori_form' => 'required|min:8|max:255',
-            'deskripsi' => 'required',
+            'deskripisi' => 'required',
         ], [
             'nama_kategori_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_kategori_form.max' => 'wajib diisi maksimal 255 karakter',
             'nama_kategori_form.required' => 'wajib diisi',
-            'deskripsi.required' => 'wajib diisi',
+            'deskripisi.required' => 'wajib diisi',
         ]);
 
         Kategori::create([
             'nama_kategori' => $request->nama_kategori_form,
-            'deskripsi' => $request->deskripsi,
+            'deskripisi' => $request->deskripisi,
             'id_kategori' => '1',
         ]);
         // dd($request->all());
@@ -108,18 +108,18 @@ class KategoriController extends Controller
         //
         $request->validate([
             'nama_kategori_form' => 'required|min:8|max:255',
-            'deskripsi' => 'required',
+            'deskripisi' => 'required',
         ], [
             'nama_kategori_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_kategori_form.max' => 'wajib diisi maksimal 255 karakter',
             'nama_kategori_form.required' => 'wajib diisi',
-            'deskripsi.required' => 'wajib diisi',
+            'deskripisi.required' => 'wajib diisi',
         ]);
 
         kategori::where('id_kategori', $id)->update(
             [
                 'nama_kategori' => $request->nama_kategori_form,
-                'deskripsi' => $request->deskripsi,
+                'deskripisi' => $request->deskripisi,
             ]
         );
 

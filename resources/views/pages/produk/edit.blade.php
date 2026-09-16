@@ -31,9 +31,9 @@
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea class="form-control" name="deskripsi_produk" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                            <label class="form-label">{{ $data->deskripsi_produk }}</label>
-                            @error('deskripsi_produk')
+                            <textarea class="form-control" name="deskripisi_produk" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                            <label class="form-label">{{ $data->deskripisi_produk }}</label>
+                            @error('deskripisi_produk')
                                 <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>

@@ -20,7 +20,9 @@ class ProdukController extends Controller
 
         $produk = produk::when($search, function ($query, $search) {
             return $query->where('nama_produk', 'like', "%{$search}%");
-        })->get();
+        })
+            ->join('tb_kategori', 'tb_produk.kategori_id', "=", 'tb_kategori.id_kategori')
+            ->get();
         // $eloquent = produk::get();
         // $queryBuilder = DB::table('tb_produk')->get();
         // dd($queryBuilder);
@@ -40,19 +42,19 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk_form' => 'required|min:8|max:255',
             'harga_produk' => 'required',
-            'deskripsi_produk' => 'required',
+            'deskripisi_produk' => 'required',
         ], [
             'nama_produk_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_produk_form.max' => 'wajib diisi maksimal 255 karakter',
             'nama_produk_form.required' => 'wajib diisi',
             'harga_produk.required' => 'wajib diisi',
-            'deskripsi_produk.required' => 'wajib diisi',
+            'deskripisi_produk.required' => 'wajib diisi',
         ]);
 
         produk::create([
             'nama_produk' => $request->nama_produk_form,
             'harga' => $request->harga_produk,
-            'deskripsi_produk' => $request->deskripsi_produk,
+            'deskripisi_produk' => $request->deskripisi_produk,
             'kategori_id' => '1',
         ]);
         // dd($request->all());
@@ -91,20 +93,20 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk_form' => 'required|min:8|max:255',
             'harga_produk' => 'required',
-            'deskripsi_produk' => 'required',
+            'deskripisi_produk' => 'required',
         ], [
             'nama_produk_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_produk_form.max' => 'wajib diisi maksimal 255 karakter',
             'nama_produk_form.required' => 'wajib diisi',
             'harga_produk.required' => 'wajib diisi',
-            'deskripsi_produk.required' => 'wajib diisi',
+            'deskripisi_produk.required' => 'wajib diisi',
         ]);
 
         produk::where('id_produk', $id)->update(
             [
                 'nama_produk' => $request->nama_produk_form,
                 'harga' => $request->harga_produk,
-                'deskripsi_produk' => $request->deskripsi_produk,
+                'deskripisi_produk' => $request->deskripisi_produk,
             ]
         );
 

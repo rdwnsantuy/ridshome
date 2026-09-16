@@ -29,18 +29,21 @@
         <div class="card-body">
             <table class="table table-striped table-bordered">
                 <thead>
+                    <th scope="col">Nomor</th>
                     <th scope="col">Nama Produk</th>
-                    <th scope="col">Harga</th>
-                    <th scope="col">Deskripsi</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Harga Produk</th>
+                    <th scope="col" style="width: 200px;">Deskripsi</th>
+                    <th scope="col">Aksi</th>
                 </thead>
                 <tbody>
                     @forelse ($data_produk as $item)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $item->nama_produk }}</td>
+                            <td>{{ $item->nama_kategori }}</td>
                             <td>{{ $item->harga }}</td>
-                            <td>{{ $item->deskripsi_produk }}</td>
+                            <td>{{ $item->deskripisi_produk }}</td>
                             <td>
                                 <button type="button" class="btn btn-danger">Delete</button>
                                 <a href="/product/{{ $item->id_produk }}/edit" class="btn btn-warning">Edit</a>
