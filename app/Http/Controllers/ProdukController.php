@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\produk;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProdukController extends Controller
 {
@@ -34,7 +36,13 @@ class ProdukController extends Controller
 
     public function create()
     {
-        return view('pages.produk.add');
+        $data_kategori = Kategori::get();
+        return view(
+            'pages.produk.add',
+            [
+                'data' => $data_kategori
+            ]
+        );
     }
 
     public function store(Request $request)
@@ -43,6 +51,8 @@ class ProdukController extends Controller
             'nama_produk_form' => 'required|min:8|max:255',
             'harga_produk' => 'required',
             'deskripisi_produk' => 'required',
+            'stok' => 'required',
+            'kategori' => 'required',
         ], [
             'nama_produk_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_produk_form.max' => 'wajib diisi maksimal 255 karakter',
@@ -52,10 +62,12 @@ class ProdukController extends Controller
         ]);
 
         produk::create([
+            'kode_produk' => Str::random(10),
             'nama_produk' => $request->nama_produk_form,
             'harga' => $request->harga_produk,
             'deskripisi_produk' => $request->deskripisi_produk,
-            'kategori_id' => '1',
+            'kategori_id' => $request->kategori,
+            'stok' => $request->stok,
         ]);
         // dd($request->all());
 
@@ -83,8 +95,11 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $data = produk::findOrFail($id);
+        $data_kategori = Kategori::get();
+
         return view('pages.produk.edit', [
             'data' => $data,
+            'kategori' => $data_kategori,
         ]);
     }
 
@@ -94,6 +109,8 @@ class ProdukController extends Controller
             'nama_produk_form' => 'required|min:8|max:255',
             'harga_produk' => 'required',
             'deskripisi_produk' => 'required',
+            'stok' => 'required',
+            'kategori' => 'required',
         ], [
             'nama_produk_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_produk_form.max' => 'wajib diisi maksimal 255 karakter',
@@ -107,6 +124,8 @@ class ProdukController extends Controller
                 'nama_produk' => $request->nama_produk_form,
                 'harga' => $request->harga_produk,
                 'deskripisi_produk' => $request->deskripisi_produk,
+                'stok' => $request->stok,
+                'kategori_id' => $request->kategori,
             ]
         );
 

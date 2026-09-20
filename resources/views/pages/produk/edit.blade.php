@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'Update Produk')
 
 @section('content')
     <div class="card">
@@ -16,7 +17,35 @@
                             <input type="text" name="nama_produk_form" class="form-control"
                                 value="{{ $data->nama_produk }}">
                             @error('nama_produk_form')
-                                <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
+                                <div id="nama_produk_form" class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-select" aria-label="Default select example" name="kategori">
+                                <option value="" selected>Pilih di sini</option>
+                                @foreach ($kategori as $item)
+                                    @if ($item->id_kategori == $data->kategori_id)
+                                        <option value="{{ $item->id_kategori }}" selected>{{ $item->nama_kategori }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            @error('kategori')
+                                <div class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label">Stok</label>
+                            <input type="text" name="stok" class="form-control" value="{{ $data->stok }}">
+                            @error('stok')
+                                <div id="stok" class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -31,10 +60,10 @@
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea class="form-control" name="deskripisi_produk" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                            <label class="form-label">{{ $data->deskripisi_produk }}</label>
+                            <textarea class="form-control" name="deskripisi_produk" placeholder="Leave a comment here" style="height: 100px">{{ $data->deskripisi_produk }}</textarea>
+                            <label class="form-label">Deskripsi produk</label>
                             @error('deskripisi_produk')
-                                <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
+                                <div id="deskripisi_produk" class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>

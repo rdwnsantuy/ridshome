@@ -17,11 +17,11 @@ class ProdukSeeder extends Seeder
         DB::table('tb_kategori')->insert([
             [
                 'nama_kategori' => "Elektronik 1",
-                'deskripisi' => "barang barang mantap",
+                'deskripsi' => "barang barang mantap",
             ],
             [
                 'nama_kategori' => "Elektronik 2",
-                'deskripisi' => "barang barang bagus",
+                'deskripsi' => "barang barang bagus",
             ],
         ]);
 

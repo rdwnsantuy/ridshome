@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
+@section('title', 'Daftar Produk')
+
 @section('content')
-    <h1>Halo ini Halaman Daftar Produk</h1>
-    <hr>
     <a href="/product/create" type="button" class="btn btn-primary mb-3">Tambah Produk</a>
     <div class="alert alert-primary">
         <h4 class="alert-heading">Info Toko</h4>
@@ -31,6 +31,7 @@
                 <thead>
                     <th scope="col">Nomor</th>
                     <th scope="col">Nama Produk</th>
+                    <th scope="col">Kode Produk</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Harga Produk</th>
                     <th scope="col" style="width: 200px;">Deskripsi</th>
@@ -41,6 +42,7 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $item->nama_produk }}</td>
+                            <td>{{ $item->kode_produk }}</td>
                             <td>{{ $item->nama_kategori }}</td>
                             <td>{{ $item->harga }}</td>
                             <td>{{ $item->deskripisi_produk }}</td>

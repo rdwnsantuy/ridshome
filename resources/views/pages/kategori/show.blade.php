@@ -1,10 +1,7 @@
-```blade
 @extends('layouts.main')
+@section('title', 'Daftar Kategori')
 
 @section('content')
-    <h1>Halo ini Halaman Daftar Kategori</h1>
-    <hr>
-
     {{-- Tombol tambah kategori --}}
     <a href="/kategori/create" class="btn btn-primary mb-3">
         Tambah Kategori
@@ -74,7 +71,7 @@
 
                             {{-- Deskripsi --}}
                             <td>
-                                {{ $item->deskripisi }}
+                                {{ $item->deskripsi }}
                             </td>
 
                             {{-- Aksi --}}
@@ -124,4 +121,3 @@
         </div>
     </div>
 @endsection
-```

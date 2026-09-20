@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'Update Kategori')
 
 @section('content')
     <div class="card">
@@ -23,8 +24,8 @@
                     <div class="col-sm-6">
                         <div class="mb-3">
                             <label class="form-label">Deskripsi</label>
-                            <input type="text" name="deskripisi" class="form-control" value="{{ $data->deskripisi }}">
-                            @error('deskripisi')
+                            <input type="text" name="deskripsi" class="form-control" value="{{ $data->deskripsi }}">
+                            @error('deskripsi')
                                 <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
