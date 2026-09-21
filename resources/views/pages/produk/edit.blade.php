@@ -7,12 +7,30 @@
             Update Data Produk
         </div>
         <div class="card-body">
-            <form action="/product/{{ $data->id_produk }}" method="POST">
+            <form action="/product/{{ $data->id_produk }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="row">
+                    <div class="col-sm-12" style="margin-bottom: 15px">
+                        <label class="form-label">Foto Produk</label>
+                        <br>
+                        @if ($data->gambar == null)
+                            <p><strong>Gambar tidak ada!</strong></p>
+                        @else
+                            <img src="{{ asset('gambar_produk/' . $data->gambar) }}" class="img-fluid" width="300"
+                                alt="...">
+                        @endif
+                        <div class="mb-3" style="margin-top: 15px; width: 300px">
+                            <input type="file" name="gambar" class="form-control" value="{{ old('gambar') }}">
+                            <div id="gambar" class="form-text text-muted"><i>perbarui foto di sini</i></div>
+                            @error('gambar')
+                                <div id="gambar" class="form-text text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="mb-3">
+
                             <label class="form-label">Nama Produk</label>
                             <input type="text" name="nama_produk_form" class="form-control"
                                 value="{{ $data->nama_produk }}">
@@ -24,7 +42,7 @@
                     <div class="col-sm-6">
                         <div class="mb-3">
                             <label class="form-label">Kategori</label>
-                            <select class="form-select" aria-label="Default select example" name="kategori">
+                            <select class="custom-select" aria-label="Default select example" name="kategori">
                                 <option value="" selected>Pilih di sini</option>
                                 @foreach ($kategori as $item)
                                     @if ($item->id_kategori == $data->kategori_id)

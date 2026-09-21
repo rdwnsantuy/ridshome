@@ -47,11 +47,64 @@
                             <td>{{ $item->harga }}</td>
                             <td>{{ $item->deskripisi_produk }}</td>
                             <td>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                                <a href="/product/{{ $item->id_produk }}/edit" class="btn btn-warning">Edit</a>
-                                <a href="/product/{{ $item->id_produk }}" class="btn btn-info">Detail</a>
+                                <!-- Tombol Delete -->
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#deleteModal{{ $item->id_produk }}">
+                                    Delete
+                                </button>
+
+                                <!-- Tombol Edit -->
+                                <a href="/product/{{ $item->id_produk }}/edit" class="btn btn-warning">
+                                    Edit
+                                </a>
+
+                                <!-- Tombol Detail -->
+                                <a href="/product/{{ $item->id_produk }}" class="btn btn-info">
+                                    Detail
+                                </a>
                             </td>
                         </tr>
+                        <!-- Modal Delete -->
+                        <div class="modal fade" id="deleteModal{{ $item->id_produk }}" tabindex="-1"
+                            aria-labelledby="deleteModalLabel{{ $item->id_produk }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{ $item->id_produk }}">
+                                            Konfirmasi Hapus
+                                        </h5>
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Apakah kamu yakin ingin menghapus produk
+                                        <strong>{{ $item->nama_produk }}</strong>?
+                                    </div>
+
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Batal
+                                        </button>
+
+                                        <form action="/product/{{ $item->id_produk }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="btn btn-danger">
+                                                Hapus
+                                            </button>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     @empty
                         <tr>
                             <td colspan="5" class="text-center">Data tidak ditemukan</td>

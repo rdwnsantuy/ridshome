@@ -53,13 +53,19 @@ class ProdukController extends Controller
             'deskripisi_produk' => 'required',
             'stok' => 'required',
             'kategori' => 'required',
+            'gambar' => 'required|image|mimes:jpg,png,jpeg|max: 2000',
         ], [
             'nama_produk_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_produk_form.max' => 'wajib diisi maksimal 255 karakter',
             'nama_produk_form.required' => 'wajib diisi',
             'harga_produk.required' => 'wajib diisi',
             'deskripisi_produk.required' => 'wajib diisi',
+            'gambar.mimes' => 'gambar harus berformat jpg, jpeg, atau png.',
         ]);
+
+        $namaFile = Str::random(10) . '.' . $request->gambar->extension();
+        // dd($namaFile);
+        $request->gambar->move(public_path('gambar_produk'), $namaFile);
 
         produk::create([
             'kode_produk' => Str::random(10),
@@ -68,6 +74,7 @@ class ProdukController extends Controller
             'deskripisi_produk' => $request->deskripisi_produk,
             'kategori_id' => $request->kategori,
             'stok' => $request->stok,
+            'gambar' => $namaFile,
         ]);
         // dd($request->all());
 
@@ -111,13 +118,26 @@ class ProdukController extends Controller
             'deskripisi_produk' => 'required',
             'stok' => 'required',
             'kategori' => 'required',
+            'gambar' => 'image|mimes:jpg,png,jpeg|max: 2000',
+
         ], [
             'nama_produk_form.min' => 'wajib diisi minimal 8 karakter',
             'nama_produk_form.max' => 'wajib diisi maksimal 255 karakter',
             'nama_produk_form.required' => 'wajib diisi',
             'harga_produk.required' => 'wajib diisi',
             'deskripisi_produk.required' => 'wajib diisi',
+            'gambar.mimes' => 'gambar harus berformat jpg, jpeg, atau png.',
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $namaFile = Str::random(10) . '.' . $request->gambar->extension();
+            $request->gambar->move(public_path('gambar_produk'), $namaFile);
+        } else {
+            $data_lama = Produk::findOrFail($id);
+            $namaFile = $data_lama->gambar;
+        }
+
+        // dd($namaFile);
 
         produk::where('id_produk', $id)->update(
             [
@@ -126,9 +146,16 @@ class ProdukController extends Controller
                 'deskripisi_produk' => $request->deskripisi_produk,
                 'stok' => $request->stok,
                 'kategori_id' => $request->kategori,
+                'gambar' => $namaFile,
             ]
         );
 
         return redirect('/product')->with('success', 'Data Produk Berhasil Diupdate!');
+    }
+    public function destroy($id)
+    {
+        $produk = produk::findOrFail($id);
+        $produk->delete();
+        return redirect('/product')->with('success', 'Data Produk Berhasil Dihapus!');
     }
 }

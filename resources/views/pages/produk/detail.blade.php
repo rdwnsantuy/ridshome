@@ -8,7 +8,12 @@
             Daftar Produk
         </div>
         <div class="card-body">
-            <img src="https://placehold.co/600x400" class="img-fluid" alt="...">
+            {{-- {{ dd($produk->gambar) }} --}}
+            @if ($produk->gambar == null)
+                <p><strong>Gambar tidak ada!</strong></p>
+            @else
+                <img src="{{ asset('gambar_produk/' . $produk->gambar) }}" class="img-fluid" width="300" alt="...">
+            @endif
             <p>Nama Produk : {{ $produk->nama_produk }}</p>
             <p>Harga Produk : {{ $produk->harga }}</p>
             <p>Deskripsi Produk : {{ $produk->deskripisi_produk }}</p>

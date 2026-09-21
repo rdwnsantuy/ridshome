@@ -44,3 +44,4 @@ Route::get('/product/{id}/edit', [ProdukController::class, 'edit']);
 Route::put('/product/{id}', [ProdukController::class, 'update']);
 
 Route::resource('kategori', KategoriController::class); //membuat routing menggunakan resource controller, sehingga dapat mengakses semua method yang ada di KategoriController
+Route::delete('/product/{id}', [ProdukController::class, 'destroy']);
