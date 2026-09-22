@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\produk;
+use App\Models\Produk;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class ProdukController extends Controller
 
         $search = $request->keyword;
 
-        $produk = produk::when($search, function ($query, $search) {
+        $produk = Produk::when($search, function ($query, $search) {
             return $query->where('nama_produk', 'like', "%{$search}%");
         })
             ->join('tb_kategori', 'tb_produk.kategori_id', "=", 'tb_kategori.id_kategori')
@@ -67,7 +67,7 @@ class ProdukController extends Controller
         // dd($namaFile);
         $request->gambar->move(public_path('gambar_produk'), $namaFile);
 
-        produk::create([
+        Produk::create([
             'kode_produk' => Str::random(10),
             'nama_produk' => $request->nama_produk_form,
             'harga' => $request->harga_produk,
@@ -90,7 +90,7 @@ class ProdukController extends Controller
 
     public function show($id)
     {
-        $data = produk::findOrFail($id);
+        $data = Produk::findOrFail($id);
         return view(
             'pages.produk.detail',
             [
@@ -101,7 +101,7 @@ class ProdukController extends Controller
 
     public function edit($id)
     {
-        $data = produk::findOrFail($id);
+        $data = Produk::findOrFail($id);
         $data_kategori = Kategori::get();
 
         return view('pages.produk.edit', [
@@ -139,7 +139,7 @@ class ProdukController extends Controller
 
         // dd($namaFile);
 
-        produk::where('id_produk', $id)->update(
+        Produk::where('id_produk', $id)->update(
             [
                 'nama_produk' => $request->nama_produk_form,
                 'harga' => $request->harga_produk,
@@ -154,7 +154,7 @@ class ProdukController extends Controller
     }
     public function destroy($id)
     {
-        $produk = produk::findOrFail($id);
+        $produk = Produk::findOrFail($id);
         $produk->delete();
         return redirect('/product')->with('success', 'Data Produk Berhasil Dihapus!');
     }

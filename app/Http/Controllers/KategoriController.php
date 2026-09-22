@@ -79,7 +79,7 @@ class KategoriController extends Controller
     public function show($id)
     {
         //
-        $data = kategori::findOrFail($id);
+        $data = Kategori::findOrFail($id);
         return view(
             'pages.kategori.detail',
             [
@@ -94,7 +94,7 @@ class KategoriController extends Controller
     public function edit(string $id)
     {
         //
-        $data = kategori::findOrFail($id);
+        $data = Kategori::findOrFail($id);
         return view('pages.kategori.edit', [
             'data' => $data,
         ]);
@@ -116,7 +116,7 @@ class KategoriController extends Controller
             'deskripsi.required' => 'wajib diisi',
         ]);
 
-        kategori::where('id_kategori', $id)->update(
+        Kategori::where('id_kategori', $id)->update(
             [
                 'nama_kategori' => $request->nama_kategori_form,
                 'deskripsi' => $request->deskripsi,

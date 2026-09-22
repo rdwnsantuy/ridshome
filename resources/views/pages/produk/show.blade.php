@@ -42,7 +42,9 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $item->nama_produk }}</td>
-                            <td>{{ $item->kode_produk }}</td>
+                            {{-- <td>{{ $item->kode_produk }}</td> --}}
+                            <td>{!! DNS2D::getBarcodeHTML($item->nama_produk, 'QRCODE', 5, 5) !!}<p class="font-italic">{{ $item->kode_produk }}</p>
+                            </td>
                             <td>{{ $item->nama_kategori }}</td>
                             <td>{{ $item->harga }}</td>
                             <td>{{ $item->deskripisi_produk }}</td>
